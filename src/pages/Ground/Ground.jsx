@@ -1,38 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Ground() {
-
-    const xy = {
-        x: 0,
-        y: 0
-    }
+    const [co, setCo] = useState([]);
     const ground = [];
-
+    let x = [];
     const createGround = () => {
-        for (let i = 1; i <= 19; i++) {
-            for (let j = 1; j <= 19; j++) {
-                xy.x = i;
-                xy.y = j;
-                ground.push({ ...xy });
+        for (let i = 0; i < 19; i++) {
+            x = [];
+            for (let j = 0; j < 19; j++) {
+                x.push(j)
             }
+            ground.push(x);
         }
+        setCo(ground);
     }
-    useEffect(()=>{
-       createGround(); 
-       console.log(ground);
-    },[])
+    useEffect(() => {
+        createGround();
+    }, [])
+
+    const onClickStone = (x, y)=>{
+        console.log(x+","+y);
+        console.log(co[x][y])
+    }
 
     return (
         <div>
             <table>
-                <thead>
-                {ground['x'].map((g, idx)=>{
-                    <tr key={idx}>
-                        {g}
-                        하잉
-                    </tr>
+                {co.map((y, idxY) => {
+                    return (
+                        <tr key={idxY}>
+                            {y.map((x, idxX)=>{
+                                return(
+                                <td key={idxX}><button onClick={()=>onClickStone(idxX, idxY)}>O</button></td>
+                                );
+                            })}
+                        </tr>
+                    );
                 })}
-                </thead>
             </table>
         </div>
     );
