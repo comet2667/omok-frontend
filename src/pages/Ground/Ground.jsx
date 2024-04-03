@@ -3,6 +3,7 @@ import { insertStone } from "../../api/user/user";
 
 function Ground() {
     const [co, setCo] = useState([]);
+
     const ground = [];
     let x = [];
     const createGround = () => {
@@ -19,10 +20,10 @@ function Ground() {
         createGround();
     }, [])
 
-    const onClickStone = async (x, y)=>{
+    const insert = async (idxX, idxY)=>{
         const result = await insertStone({
-            x:x,
-            y:y,
+            x:idxX,
+            y:idxY,
         });
         console.log(result);
     }
@@ -35,7 +36,7 @@ function Ground() {
                         <tr key={idxY}>
                             {y.map((x, idxX)=>{
                                 return(
-                                <td key={idxX}><button onClick={()=>onClickStone(idxX, idxY)}>O</button></td>
+                                <td key={idxX}><button onClick={()=>insert(idxX, idxY)}>O</button></td>
                                 );
                             })}
                         </tr>
