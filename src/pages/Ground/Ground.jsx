@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { insertStone } from "../../api/user/user";
 
 function Ground() {
     const [co, setCo] = useState([]);
@@ -18,9 +19,12 @@ function Ground() {
         createGround();
     }, [])
 
-    const onClickStone = (x, y)=>{
-        console.log(x+","+y);
-        console.log(co[x][y])
+    const onClickStone = async (x, y)=>{
+        const result = await insertStone({
+            x:x,
+            y:y,
+        });
+        console.log(result);
     }
 
     return (
